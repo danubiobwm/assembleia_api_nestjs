@@ -27,6 +27,25 @@ export class Pauta {
     return StatusPauta.NAO_INICIADA
 
   }
+
+  public isFoiInicial(): boolean {
+    return this.isInSatus(StatusPauta.INICIADA);
+  }
+
+  public isFoiEncerrada(): boolean {
+
+    return this.isInSatus(StatusPauta.ENCERRADA);
+  }
+
+  public isPossivelIniciarSessao(): boolean {
+
+    return this.isInSatus(StatusPauta.NAO_INICIADA);
+  }
+
+  public isInSatus(statusVerificar: StatusPauta): boolean {
+    const status = this.obterStatus();
+    return status == statusVerificar;
+  }
 }
 
 
