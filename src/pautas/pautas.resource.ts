@@ -11,6 +11,11 @@ export class PautaResource{
   status: string;
 }
 
+export class NovaSessaoResource{
+  minutes: number;
+  pautaId: string;
+}
+
 export function toRepresentation(entity: Pauta): PautaResource{
   const resource = new PautaResource();
   resource.id = entity.id;
