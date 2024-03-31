@@ -5,6 +5,9 @@
   "compilerOptions": {
     "deleteOutDir": true
   },
+  "generateOptions": {
+    "spec": false
+  },
   "spec": {
     "class": false,
     "component": false,
