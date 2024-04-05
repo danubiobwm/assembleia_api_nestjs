@@ -8,5 +8,6 @@ import { PautasController } from './pautas.controller';
   imports: [DatabaseModule],
   providers: [PautasService, ...pautasProviders],
   controllers: [PautasController],
+  exports: [PautasService]
 })
 export class PautasModule {}
