@@ -1,10 +1,11 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { OpcaoVoto, Voto } from './voto.entity';
 import { Repository } from 'typeorm';
 import { AssociadoService } from './associado/associado.service';
 import { Result } from '../common/Result';
 import { Pauta } from '../pautas/pauta.entity';
 import { Associado } from './associado/associado.entity';
+import { HttpError } from '../common/httpError';
 
 @Injectable()
 export class VotoService {
@@ -18,9 +19,9 @@ export class VotoService {
     pauta: Pauta,
     cpf: string,
     opcaoVoto: OpcaoVoto,
-  ): Promise<Result<Voto>> {
+  ): Promise<Result<Voto, HttpError>> {
     if (!pauta.isFoiInicial) {
-      return new Result(null, new Error('A pauta não foi inicializada'));
+      return new Result(null, new HttpError('A pauta não foi inicializada', HttpStatus.UNPROCESSABLE_ENTITY));
     }
 
     const associado: Associado = await this.associadoService.recuperarOuCadastrar(cpf);
@@ -28,7 +29,7 @@ export class VotoService {
     const votoJaRegistro: boolean = await this.existeVotoPara(pauta, associado)
 
     if (votoJaRegistro) {
-      return new Result(null, new Error("Voto já registrado anteriomente."))
+      return new Result(null, new HttpError("Voto já registrado anteriomente.", HttpStatus.CONFLICT))
     }
 
     const voto: Voto = new Voto();

@@ -3,6 +3,8 @@ import { Response } from 'express';
 import { PautasService } from '../pautas/pautas.service';
 import { VotoService } from './voto.service';
 import { RegisterVotoResource } from './voto.resource';
+import { ErrorResponse } from '../common/erro.resource';
+
 
 @Controller('pautas/:id/votos')
 export class VotoController {
@@ -17,6 +19,20 @@ export class VotoController {
     @Body() resource: RegisterVotoResource,
     @Res() response: Response,
   ) {
+
+    const pauta = await this.pautasService.findById(idPauta);
+    if(!pauta) {
+      return response.status(HttpStatus.NOT_FOUND)
+      .send(new ErrorResponse("Pauta não encontrada"))
+    }
+
+    const result = await this.votosService.registarVoto(pauta, resource.cpf, resource.opcaoVoto);
+
+    if(result.isError()){
+      const error = result.error;
+      return response.status(error.status).send(new ErrorResponse(error.message))
+    }
+
     return response.status(HttpStatus.ACCEPTED).send()
   }
 
