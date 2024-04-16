@@ -5,3 +5,4 @@ export class RegisterVotoResource{
   opcaoVoto: OpcaoVoto;
 
 }
+

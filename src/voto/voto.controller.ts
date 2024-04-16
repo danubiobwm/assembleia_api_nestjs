@@ -21,6 +21,7 @@ export class VotoController {
   ) {
 
     const pauta = await this.pautasService.findById(idPauta);
+
     if(!pauta) {
       return response.status(HttpStatus.NOT_FOUND)
       .send(new ErrorResponse("Pauta não encontrada"))

@@ -43,11 +43,12 @@ export class VotoService {
   }
 
   async existeVotoPara(pauta: Pauta, associado: Associado): Promise<boolean> {
-    const voto = this.votoRepository.findOne({
+    const voto = await this.votoRepository.findOne({
       where: {
         pauta: {
           id: pauta.id
-        }, associado: {
+        },
+        associado: {
           id: associado.id
         }
       }

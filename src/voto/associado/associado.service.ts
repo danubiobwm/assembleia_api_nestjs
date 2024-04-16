@@ -22,6 +22,7 @@ export class AssociadoService {
       return associadoEncontrado;
     }
     const novoAssociado = new Associado();
+    novoAssociado.cpf = cpf;
     await this.associadoRepository.save(novoAssociado);
     return novoAssociado;
   }
