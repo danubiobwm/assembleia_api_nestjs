@@ -57,18 +57,20 @@ export class VotoService {
     return !!voto;
   }
 
-  async obterVotosPorPauta(pauta: Pauta): Promise<Voto[]> {
-    return await this.votoRepository.find({
-      where: {
-        id: pauta.id
-      }
-    })
 
-  }
+  async obterVotosPorPauta(pauta: Pauta) : Promise<Voto[]> {
+    return await this.votoRepository.find({
+        where: {
+            pauta: {
+                id: pauta.id
+            }
+        }
+    })
+}
 
 
   obterPosicaoVencedora(sim: number, nao: number): OpcaoVoto{
-    if(sim ==nao){
+    if(sim == nao){
       return null
     }
 
@@ -77,7 +79,7 @@ export class VotoService {
 
 
   async obterResultado(pauta:Pauta):Promise<Result<ResultadoVotacaoResource, HttpError>> {
-    if(!pauta.isFoiEncerrada){
+    if(!pauta.isFoiEncerrada()){
       return new Result(null, new HttpError("Resultado ainda não disponivel", HttpStatus.NOT_FOUND))
     }
     const votos: Voto[] = await this.obterVotosPorPauta(pauta)
