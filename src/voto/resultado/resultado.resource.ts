@@ -7,6 +7,6 @@ export class ResultadoVotacaoResource{
   encerramento: Date;
   totalVotos: number;
   quantidadeSim: number;
-  quantidadeNão: number;
+  quantidadeNao: number;
   opcaoGanhadora: OpcaoVoto;
 }
