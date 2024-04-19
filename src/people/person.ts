@@ -1,4 +1,13 @@
+import { ApiProperty } from '@nestjs/swagger'
+
 export class Person {
-  id: number;
-  name: string;
+    @ApiProperty()
+    id: number;
+    @ApiProperty()
+    name: string;
+}
+
+export class PersonUpdatingRequest {
+    @ApiProperty()
+    name: string;
 }

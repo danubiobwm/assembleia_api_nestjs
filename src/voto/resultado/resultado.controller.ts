@@ -3,8 +3,11 @@ import { Response } from 'express';
 import { VotoService } from '../voto.service';
 import { PautasService } from '../../pautas/pautas.service';
 import { ErrorResponse } from '../../common/erro.resource';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
+
 
 @Controller('pautas/:id/resultados')
+@ApiTags('Resultados')
 export class ResultadoController {
   constructor(
     private readonly votoService: VotoService,
@@ -12,6 +15,7 @@ export class ResultadoController {
   ){}
 
   @Get()
+  @ApiOperation({ description: 'Resultados da votação' })
   async obterResultado(@Param('id') idPauta: string, @Res() response: Response,
 ){
 

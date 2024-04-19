@@ -2,12 +2,15 @@ import { Controller, Res, Post, Get, Param, Put, Delete, Body } from '@nestjs/co
 import { Response } from 'express';
 import { PeopleService } from './people.service';
 import { Person } from './person';
+import { ApiTags, ApiOperation } from '@nestjs/swagger'
 
 @Controller('people')
+@ApiTags('people')
 export class PeopleController {
   constructor(private readonly peopleService: PeopleService) { }
 
   @Get()
+  @ApiOperation({ description: 'Criar User' })
   list(@Res() response: Response) {
     const list = this.peopleService.list();
     return response.status(200).send(list);

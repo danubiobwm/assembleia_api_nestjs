@@ -4,8 +4,11 @@ import { PautasService } from './pautas.service';
 import { CriarPautaResource, NovaSessaoResource, toDomain, toRepresentation } from './pautas.resource';
 import { Pauta } from './pauta.entity';
 import { ErrorResponse } from '../common/erro.resource';
+import { ApiTags, ApiOperation } from '@nestjs/swagger'
+
 
 @Controller('pautas')
+@ApiTags('Pautas')
 export class PautasController {
 
   private readonly logger = new Logger(PautasController.name);
@@ -14,6 +17,7 @@ export class PautasController {
   ) { }
 
   @Post()
+  @ApiOperation({ description: 'Criar uma Pauta' })
   async save(@Body() pauta: CriarPautaResource, @Res() response: Response) {
 
     this.logger.log("Criando nova pauta")
